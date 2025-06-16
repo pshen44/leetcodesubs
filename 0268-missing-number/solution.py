@@ -1,9 +1,9 @@
-class Solution:
-    def missingNumber(self, nums: List[int]) -> int:
-        nums.sort()
-        array = list(range(len(nums) + 1))
-        for i in array:
-            if i not in nums:
-                return i
-
-
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        array_sum = sum(list(range(len(nums)+1)))
+        return array_sum - sum(nums)
+        
