@@ -1,18 +1,16 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        if len(s) % 2 != 0:
-            return False
         stack = []
-        Bmap = {'}' : '{', ']' : '[', ')' : '('}
-        for c in s:
-            if c in Bmap:
-                if stack and stack[-1] == Bmap[c]:
+        bmap = { '}' : '{', ']' : '[', ')' : '(' }
+        for b in s:
+            if b in bmap:
+                if stack and bmap[b] == stack[-1]:
                     stack.pop()
                 else:
                     return False
             else:
-                stack.append(c)
+                stack.append(b)
         return True if not stack else False
-
+        
 
 
