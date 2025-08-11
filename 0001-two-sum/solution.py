@@ -5,10 +5,9 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        prevMap = {}
-        for i, n in enumerate(nums):
-            diff = target - n
-            if diff in prevMap:
-                return [prevMap[diff],i]
-            prevMap[n]= i
-        return
+        count = {}
+        for i, v in enumerate(nums):
+            diff = target - v
+            if diff in count:
+                return [count[diff], i]
+            count[v] = i
