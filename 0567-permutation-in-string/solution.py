@@ -1,17 +1,26 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        s1Map = Counter(s1)
-        s2Map = {}
-        l = 0
-        for r in range(len(s2)):
-            s2Map[s2[r]] = 1 + s2Map.get(s2[r], 0)
-
-            if r - l + 1 > len(s1):
-                s2Map[s2[l]] -= 1
-                if s2Map[s2[l]] == 0:
-                    del s2Map[s2[l]]
-                l += 1
-            if s2Map == s1Map:
+        if len(s1) > len(s2):
+            return False
+        count1 = {}
+        count2 = {}
+        for c in s1:
+            count1[c] = 1 + count1.get(c, 0)
+        l, r = 0, 0
+        while r - l + 1 < len(s1):
+            count2[s2[r]] = 1 + count2.get(s2[r], 0)
+            r += 1
+        while r < len(s2):
+            count2[s2[r]] = 1 + count2.get(s2[r], 0)
+            if count2 == count1:
                 return True
-
+            count2[s2[l]] -= 1
+            if count2[s2[l]] == 0:
+                del count2[s2[l]]
+            l += 1
+            r += 1
         return False
+
+
+        
+        
