@@ -1,13 +1,12 @@
-class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        count = {}
-        for i, v in enumerate(nums):
-            diff = target - v
-            if diff in count:
-                return [count[diff], i]
-            count[v] = i
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        hmap = {}
+        for i, n in enumerate(nums):
+            difference = target - n
+            if difference in hmap:
+                return [i,hmap[difference]]
+            else:
+                hmap[n] = i
+
+
+
