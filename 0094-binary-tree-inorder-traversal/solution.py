@@ -9,7 +9,7 @@ class Solution:
         res = []
         def inorder(root):
             if not root:
-                return root
+                return
             inorder(root.left)
             res.append(root.val)
             inorder(root.right)
