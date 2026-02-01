@@ -9,7 +9,7 @@ class Solution:
         if not root:
             return TreeNode(val)
         cur = root
-        while True:
+        while cur:
             if val > cur.val:
                 if not cur.right:
                     cur.right = TreeNode(val)
@@ -22,5 +22,4 @@ class Solution:
                     return root
                 else:
                     cur = cur.left
-
-
+            
