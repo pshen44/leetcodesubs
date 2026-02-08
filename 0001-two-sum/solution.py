@@ -1,12 +1,8 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        hmap = {}
+        nummap = {} #number : index
         for i, n in enumerate(nums):
-            difference = target - n
-            if difference in hmap:
-                return [i,hmap[difference]]
-            else:
-                hmap[n] = i
-
-
-
+            diff = target - n
+            if diff in nummap:
+                return [i, nummap[diff]]
+            nummap[n] = i
