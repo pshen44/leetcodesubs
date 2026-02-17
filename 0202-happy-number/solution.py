@@ -3,12 +3,10 @@ class Solution:
         cycle = set()
         while n != 1:
             prod = []
-            for digit in str(n):
-                prod.append(int(digit) * int(digit))
+            for dig in str(n):
+                prod.append(int(dig) * int(dig))
             n = sum(prod)
             if n in cycle:
                 return False
             cycle.add(n)
-            print(cycle)
         return True
-
