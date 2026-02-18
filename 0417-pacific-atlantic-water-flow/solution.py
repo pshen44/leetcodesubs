@@ -1,41 +1,31 @@
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        ROWS, COLS = len(heights), len(heights[0])
-        pac = [[False] * COLS for _ in range(ROWS)]
-        atl = [[False] * COLS for _ in range(ROWS)]
+        ROWS = len(heights)
+        COLS = len(heights[0])
+        pac, atl = set(), set()
 
-        def bfs(source, ocean):
-            q = deque(source)
-            while q:
-                r, c = q.popleft()
-                ocean[r][c] = True
-                directions = [[1,0], [-1,0], [0,1], [0,-1]]
-                for dr, dc in directions:
-                    if (r + dr == ROWS or c + dc == COLS or
-                        min(r + dr, c + dc) < 0 or
-                        heights[r + dr][c + dc] < heights[r][c] or
-                        ocean[r + dr][c + dc]):
-                        continue
-                    q.append((r + dr, c + dc))
-        
-        pacific = []
-        atlantic = []
-        for r in range(ROWS):
-            pacific.append((r, 0))
-            atlantic.append((r, COLS - 1))
+        def dfs(r, c, visit, prev):
+            if ((r,c) in visit or min(r,c) < 0 or
+                r == ROWS or c == COLS or
+                heights[r][c] < prev):
+                return
+            visit.add((r,c))
+            dfs(r + 1, c, visit, heights[r][c])
+            dfs(r - 1, c, visit, heights[r][c])
+            dfs(r, c + 1, visit, heights[r][c])
+            dfs(r, c - 1, visit, heights[r][c])
+
         for c in range(COLS):
-            atlantic.append((ROWS - 1, c))
-            pacific.append((0, c))
-        bfs(pacific, pac)
-        bfs(atlantic, atl)
-
+            dfs(0, c, pac, heights[0][c])
+            dfs(ROWS - 1, c, atl, heights[ROWS - 1][c])
+        
+        for r in range(ROWS):
+            dfs(r, 0, pac, heights[r][0])
+            dfs(r, COLS - 1, atl, heights[r][COLS - 1])
+        
         res = []
         for r in range(ROWS):
             for c in range(COLS):
-                if pac[r][c] and atl[r][c]:
-                    res.append([r,c])
+                if (r, c) in pac and (r, c) in atl:
+                    res.append([r, c])
         return res
-
-
-                    
-        
