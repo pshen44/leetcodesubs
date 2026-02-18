@@ -1,10 +1,22 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        def helper(array):
-            rob1, rob2 = 0, 0
-            for n in array:
-                temp = max(n + rob1, rob2)
-                rob1 = rob2
-                rob2 = temp
-            return rob2
-        return max(helper(nums[0:len(nums) - 1]), helper(nums[1:len(nums)])) if len(nums) > 1 else nums[0]
+        if len(nums) == 1:
+            return nums[0]
+        
+        memo = [-1] * len(nums)
+
+        def dfs(i, end):
+            if i >= end:
+                return 0
+            if memo[i] != -1:
+                return memo[i]
+            memo[i] = max(dfs(i + 1, end), dfs(i + 2, end) + nums[i])
+            return memo[i]
+
+        res1 = dfs(1, len(nums))
+
+        memo = [-1] * len(nums)
+        res2 = dfs(0, len(nums) - 1)
+        return max(res1, res2)
+
+
