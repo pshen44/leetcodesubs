@@ -1,8 +1,13 @@
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        wordmap = {} # word : index
-        for idx, num in enumerate(numbers):
-            diff = target - num
-            if diff in wordmap:
-                return [wordmap[diff] + 1, idx + 1]
-            wordmap[num] = idx
+        left = 0
+        right = len(numbers) - 1
+
+        while right > left:
+            curr = numbers[left] + numbers[right]
+            if curr > target:
+                right -= 1
+            elif curr < target:
+                left += 1
+            else:
+                return [left + 1, right + 1]
